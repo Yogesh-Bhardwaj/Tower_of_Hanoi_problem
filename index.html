@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower of Hanoi</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <h1>Tower of Hanoi Problem</h1>
+    <div id="controller">
+        <form method="get" onclick="return inp()">
+            Number of disk : <input type="number" id="nod" value=5>
+        </form>
+        <form  method="get" onclick="return speed()">
+            Speed : <input type="number" id="spd" value = 1>
+        </form>
+    </div>
+    <div id="wholeSetup" >
+        <pre id="tower"></pre>
+        <button onclick="ab()" id="ab">⟺</button>
+        <button onclick="ac()" id="ac">⟺</button>
+        <button onclick="bc()" id="bc">⟺</button>
+    </div>
+    <div id="button-set">
+        <button id="reset" onclick="reset()">Reset</button>
+        <button id="show-sol" onclick="Solution()">Show Solution</button>
+        <button id="stop" onclick="Stop()">Stop</button>
+    </div>
+    <script src="func.js"></script>
+</body>
+</html>
