@@ -6,7 +6,9 @@ let setup =[];
 let stop = 0;
 let rst = 0;
 let V = [];
+let rsm = 1;
 let waittime;
+let running = 0;
 function replaceAt(s,index, replacement) {
     if (index >= s.length) {
         return s.valueOf();
@@ -23,6 +25,9 @@ function init()
     tower.innerHTML = "";
     let abb ;
     let acb ;
+    rsm = 1;
+    running =0;
+    operations = [];
     if(n<=3)
     {
         document.getElementById("ab").style.fontSize = "smaller";
@@ -123,7 +128,7 @@ function init()
     display();
 }
 function inp(){
-    n = parseInt(document.getElementById("nod").value);
+    n= parseInt(document.getElementById("nod").value);
     init();
 }
 function transfer(source,dest)
@@ -226,42 +231,58 @@ function sleep(ms)
 {
     return new Promise(resolve => setTimeout(resolve,ms));
 }
-async function Solution()
+async function Solution(){
+    init();
+    await sleep(800);
+    Process();
+}
+async function Process()
 {
+    running =1;
     waittime = (10/(document.getElementById("spd").value))*100;
     stop = 0;
     rst = 0;
     let nom = (1<<n) - 1;
+    await sleep(500);
     if(n%2 == 0)
     {
-        for(let i=1;i<=nom;i++)
+        for(let i=rsm;i<=nom;i++)
         {
             if(stop || rst)
-            return;
+            {
+                running = 0;
+                return;
+            }
             if(i%3==1)
             ab();
             else if(i%3==2)
             ac();
             else
             bc();
+            rsm++;
             await sleep(waittime);
         }
     }
     else
     {   
-        for(let i=1;i<=nom;i++)
+        for(let i=rsm;i<=nom;i++)
         {
             if(stop || rst)
-            return;
+            {
+                running = 0;
+                return;
+            }
             if(i%3==1)
             ac();
             else if(i%3==2)
             ab();
             else
             bc();
+            rsm++;
             await sleep(waittime);
         }
     }
+    rsm=1;
 }
 function display()
 {
@@ -276,7 +297,16 @@ function display()
 function Stop()
 {
     stop=1;
+    running =0;
 }
+function Resume()
+{
+    stop = 0;
+    if(running)
+    window.alert("Process is already running");
+    else
+    Process();
+} 
 async function reset()
 {
     rst = 1;
@@ -292,4 +322,4 @@ function speed()
 {
     waittime = (10/(document.getElementById("spd").value))*100;
 }
-init();
+init()
