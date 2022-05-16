@@ -301,6 +301,8 @@ function Stop()
 }
 function Resume()
 {
+    if(rsm === 1)
+    return;
     stop = 0;
     if(running)
     window.alert("Process is already running");
