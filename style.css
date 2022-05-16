@@ -71,6 +71,13 @@ button{
     padding:10px;
     font-size: large;
 }
+#resume{
+    margin-top: 25px;
+    margin-left: 20px;
+    background-color: rgb(152, 27, 202);
+    padding:10px;
+    font-size: large;
+}
 #slow{
     margin-top: 25px;
     margin-left: 20px;
