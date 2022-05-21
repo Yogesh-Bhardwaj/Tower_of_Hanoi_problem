@@ -216,15 +216,28 @@ function transfer(source,dest)
 }   
 function ac()
 {
+    if(running)
+    return;
+    document.getElementById("stop").style.display = "block";
+    document.getElementById("resume").style.display = "none";
     transfer(0,2);
+
 }
 function ab()
 {
+    if(running)
+    return;
+    document.getElementById("stop").style.display = "block";
+    document.getElementById("resume").style.display = "none";
     transfer(0,1);
 
 }
 function bc()
 {
+    if(running)
+    return;
+    document.getElementById("stop").style.display = "block";
+    document.getElementById("resume").style.display = "none";
     transfer(1,2);
 }
 function sleep(ms)
@@ -233,6 +246,8 @@ function sleep(ms)
 }
 async function Solution(){
     init();
+    document.getElementById("stop").style.display = "block";
+    document.getElementById("resume").style.display = "none";
     await sleep(800);
     Process();
 }
@@ -254,11 +269,11 @@ async function Process()
                 return;
             }
             if(i%3==1)
-            ab();
+            transfer(0,1);
             else if(i%3==2)
-            ac();
+            transfer(0,2);
             else
-            bc();
+            transfer(1,2);
             rsm++;
             await sleep(waittime);
         }
@@ -273,11 +288,11 @@ async function Process()
                 return;
             }
             if(i%3==1)
-            ac();
+            transfer(0,2);
             else if(i%3==2)
-            ab();
+            transfer(0,1);
             else
-            bc();
+            transfer(1,2);
             rsm++;
             await sleep(waittime);
         }
@@ -296,8 +311,12 @@ function display()
 }
 function Stop()
 {
+    if(stop==1)
+    return;
     stop=1;
     running =0;
+    document.getElementById("stop").style.display = "none";
+    document.getElementById("resume").style.display = "block";
 }
 function Resume()
 {
@@ -307,8 +326,13 @@ function Resume()
     if(running)
     window.alert("Process is already running");
     else
-    Process();
-} 
+    {
+        document.getElementById("stop").style.display = "block";
+        document.getElementById("resume").style.display = "none";
+        Process();
+
+    } 
+}
 async function reset()
 {
     rst = 1;
@@ -319,6 +343,9 @@ async function reset()
     }
     operations=[];
     stop = 1;
+    rsm=1;
+    document.getElementById("stop").style.display = "block";
+    document.getElementById("resume").style.display = "none";
 }
 function speed()
 {
